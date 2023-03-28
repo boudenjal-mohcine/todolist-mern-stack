@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 app.use(BodyParser.json());
 app.use(cors());
+const todoRoutes = require('./routes/todo')
 
 //header of our requests
 app.use((req, res, next) => {
@@ -25,6 +26,10 @@ app.listen(port, () => {
     });
     console.log(`Server is running on port: ${port}`);
 });
+
+
+//endpoints of todo
+app.use("/api/todo",todoRoutes);
 
 module.exports = app;
 
