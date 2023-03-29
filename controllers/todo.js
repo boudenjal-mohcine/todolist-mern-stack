@@ -47,9 +47,15 @@ exports.getAllTodos = (req,res,next) =>{
 
 //get one todo
 
-// exports.getOneTodo = (req,res,next) =>{
+exports.getOneTodo = (req,res,next) =>{
 
-//     Todo.findOne({ _id:req })
+    Todo.findOne({ _id:req.params.id }).then((todo)=>{
+        res.status(201).json({todo});
+    }).catch((error)=>{
+        res.status(401).json({
+            error
+        })
+    });
 
 
-// }
+}

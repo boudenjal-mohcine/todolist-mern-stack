@@ -7,5 +7,7 @@ const todoCtrl = require('../controllers/todo');
 
 router.post("/",todoCtrl.addNewTodo);
 router.get("/",todoCtrl.getAllTodos);
+router.get("/:id",todoCtrl.getOneTodo);
+
 
 module.exports = router;
