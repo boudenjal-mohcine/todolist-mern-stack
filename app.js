@@ -8,6 +8,8 @@ const app = express();
 app.use(BodyParser.json());
 app.use(cors());
 const todoRoutes = require('./routes/todo')
+const userRoutes = require('./routes/user');
+
 
 //header of our requests
 app.use((req, res, next) => {
@@ -30,6 +32,8 @@ app.listen(port, () => {
 
 //endpoints of todo
 app.use("/api/todo",todoRoutes);
+app.use("/api/auth",userRoutes);
+
 
 module.exports = app;
 
