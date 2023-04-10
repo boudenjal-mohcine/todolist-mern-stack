@@ -6,7 +6,7 @@ exports.addNewTodo = (req, res, next) => {
   const todo = new Todo({
     title: req.body.title,
     description: req.body.description,
-    userId: req.body.userId,
+    userId: req.auth.userId,
   });
 
   todo
@@ -26,7 +26,7 @@ exports.addNewTodo = (req, res, next) => {
 //get all todolist
 
 exports.getAllTodos = (req, res, next) => {
-  Todo.find()
+  Todo.find({ userId : req.auth.userId })
     .then((todos) => {
       res.status(200).json({ todos: todos });
     })
@@ -40,7 +40,7 @@ exports.getAllTodos = (req, res, next) => {
 //get one todo
 
 exports.getOneTodo = (req, res, next) => {
-  Todo.findOne({ _id: req.params.id })
+  Todo.findOne({ _id: req.params.id,userId : req.auth.userId })
     .then((todo) => {
       res.status(201).json({ todo });
     })
@@ -54,7 +54,7 @@ exports.getOneTodo = (req, res, next) => {
 //delete todo
 
 exports.deleteTodo = (req, res, next) => {
-  Todo.findOneAndDelete({ _id: req.params.id })
+  Todo.findOneAndDelete({ _id: req.params.id,userId : req.auth.userId })
     .then(() => {
       res.status(200).json({
         message: "Todo deleted successfully",
@@ -71,7 +71,7 @@ exports.deleteTodo = (req, res, next) => {
 
 exports.updateTodo = (req, res, next) => {
   Todo.findOneAndUpdate(
-    { _id: req.params.id },
+    { _id: req.params.id,userId : req.auth.userId },
     {
       title: req.body.title,
       description: req.body.description,
